@@ -46,7 +46,9 @@ tests: note \
 	note_quad_linked_list run_test_quad_linked_list \
 	note_sparse_matrix run_test_sparse_matrix \
 	note_dlx run_test_dlx \
-	note_install_exact_cover install_exact_cover \
+        py_tests
+
+py_tests: note_install_exact_cover install_exact_cover \
 	note_sudoku run_test_sudoku \
 	note_examples run_examples
 
