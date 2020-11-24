@@ -65,7 +65,7 @@ class Sudoku:
         self._constraint_matrix = self._translate_into_constraint_matrix()
         self._calculate_hardness()
         if want_rating:
-            print "Rating: " + self._hardness
+            print("Rating: " + self._hardness)
 
     def _calculate_hardness(self):
         # Roughly, the fewer choices the player has, the easier the puzzle.
@@ -101,7 +101,7 @@ class Sudoku:
         cell_con_col = (0*self._size**2) + (row * self._size) + col
         row_con_col  = (1*self._size**2) + (row * self._size) + entry - 1
         col_con_col  = (2*self._size**2) + (col * self._size) + entry - 1
-        box_con_col  = (3*self._size**2) + self._size*(self._base*(row/self._base) + (col/self._base)) + entry - 1
+        box_con_col  = (3*self._size**2) + self._size*(self._base*(row//self._base) + (col//self._base)) + entry - 1
         # print row, col, entry, ":", con_row, cell_con_col, row_con_col, col_con_col, box_con_col
         constraints[con_row][cell_con_col] = 1
         constraints[con_row][row_con_col]  = 1
@@ -129,7 +129,7 @@ class Sudoku:
 
     def _translate_exact_cover_into_sudoku(self, cover):
         cover.sort()
-        return np.array(map(lambda x: (x % self._size) + 1, cover)).reshape(self._size, self._size)
+        return np.fromiter(map(lambda x: (x % self._size) + 1, cover), int).reshape(self._size, self._size)
 
     def solve(self):
         # NOTES:
@@ -140,7 +140,7 @@ class Sudoku:
         #     function.
         cover = ec.get_exact_cover(self._constraint_matrix)
         solution = None
-        if cover != [] and ((cover[0] != 0) or (cover[1] != 0)):  # an array of 0's implies no solution.
+        if cover.size > 0 and ((cover[0] != 0) or (cover[1] != 0)):  # an array of 0's implies no solution.
             solution = Sudoku(self._size)
             solution._sudo = self._translate_exact_cover_into_sudoku(cover)
         return solution
