@@ -1,3 +1,6 @@
+Note: This repo is no longer maintained. Please use [@jwg4's fork](https://github.com/jwg4/exact_cover_np/) instead.
+====
+
 Finding Exact Covers in NumPy (and Solving Sudoku!)
 ===================================================
 
